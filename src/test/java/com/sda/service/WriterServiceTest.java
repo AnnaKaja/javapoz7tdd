@@ -37,6 +37,30 @@ public class WriterServiceTest {
         Assert.assertEquals("Hello, my friend.", result);
     }
 
+
+    @Test
+    public void testBlankName() {
+        //given
+        String name = "";
+
+        //when
+        String result = writerService.write(name);
+
+        //then
+        Assert.assertEquals("Hello, my friend.", result);
+    }
+
+    @Test
+    public void testEmptyName() {
+        //given
+        String name = "   ";
+
+        //when
+        String result = writerService.write(name);
+
+        //then
+        Assert.assertEquals("Hello, my friend.", result);
+    }
     public void testCapitalizedName() {
         //given
         String name = "ANNA";
@@ -45,5 +69,30 @@ public class WriterServiceTest {
 
         //then
         Assert.assertEquals("HELLO, ANNA!", result);
+    }
+
+
+    @Test
+    public void testMultipleNames() {
+        //given
+        String value = "Szymon,Anna,Jan";
+
+        //when
+        String result = writerService.write(value);
+
+        //then
+        Assert.assertEquals("Hello, Szymon, Anna and Jan.", result);
+    }
+
+    @Test
+    public void testMultipleCapitalizedNames() {
+        //given
+        String value = "SZYMON,ANNA,JAN";
+
+        //when
+        String result = writerService.write(value);
+
+        //then
+        Assert.assertEquals("HELLO, SZYMON, ANNA AND JAN!", result);
     }
 }
