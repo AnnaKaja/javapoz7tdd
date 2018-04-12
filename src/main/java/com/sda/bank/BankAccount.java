@@ -6,6 +6,12 @@ public class BankAccount {
     private String id;
     private int amount;
 
+    public static BankAccount instanceOf(String id, int amount) {
+        BankAccount bankAccount = new BankAccount(id);
+        bankAccount.amount = amount;
+        return bankAccount;
+    }
+
     public BankAccount(String id) {
         this.id = id;
     }
@@ -30,9 +36,9 @@ public class BankAccount {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        BankAccount account = (BankAccount) o;
-        return amount == account.amount &&
-                Objects.equals(id, account.id);
+        BankAccount that = (BankAccount) o;
+        return amount == that.amount &&
+                Objects.equals(id, that.id);
     }
 
     @Override

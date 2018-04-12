@@ -52,4 +52,12 @@ public class BankDatabase {
                 .mapToInt(e -> e.getValue().size())
                 .sum();
     }
+
+    public BankAccount getAccountWithId(String accountName) {
+        return null;
+    }
+
+    public boolean deposit(String accountName, int amount) {
+        throw new RuntimeException();
+    }
 }

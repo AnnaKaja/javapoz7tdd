@@ -36,6 +36,16 @@ Feature: Bank functionality
     And I insert account to bank
     Then User has only '1' account in bank
 
+  Scenario: I can deposit some money to existing account
+    Given I mock bank database for this case
+    And I instantiate bank
+    And I create user with name 'John Doe' and pesel '758392945'
+    And I create account with name 'testowe konto'
+    When I insert user to bank
+    And I insert account to bank
+    And I deposit '1000' to account with name 'testowe konto'
+    Then Account with name 'testowe konto' has amount of '1000'
+
 
 
 

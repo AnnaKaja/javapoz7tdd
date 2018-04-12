@@ -10,6 +10,10 @@ public class Bank {
         this.bankDatabase = bankDatabase;
     }
 
+    public boolean deposit(String accountName, int amount) {
+        return bankDatabase.deposit(accountName, amount);
+    }
+
     public boolean addBankUser(BankUser bankUser) {
         return bankDatabase.addBankUser(bankUser);
     }
@@ -32,5 +36,9 @@ public class Bank {
 
     public int numberOfAccounts() {
         return bankDatabase.numberOfAccounts();
+    }
+
+    public BankAccount getAccountWithId(String accountName) {
+        return bankDatabase.getAccountWithId(accountName);
     }
 }
