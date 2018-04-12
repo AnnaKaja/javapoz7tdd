@@ -20,7 +20,7 @@ public class BankSteps {
 
     @Given("^I instantiate bank$")
     public void iInstantiateBank() {
-        this.bank = new Bank();
+        this.bank = new Bank(new BankDatabase());
     }
 
     @And("^I create user with name '(.*)' and pesel '(.*)'$")
@@ -66,5 +66,10 @@ public class BankSteps {
     public void accountIsNotPresentInBank() {
         Assert.assertEquals(0, bank.numberOfAccounts());
         Assert.assertFalse(accountCreationResult);
+    }
+
+    @Then("^User has only '(\\d+)' account in bank$")
+    public void userHasOnlyAccountInBank(int numberOfAccounts) {
+        Assert.assertEquals(numberOfAccounts, bank.getNumberOfAccountsFor(user));
     }
 }
