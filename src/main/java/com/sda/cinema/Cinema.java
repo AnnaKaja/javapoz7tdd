@@ -30,7 +30,21 @@ public class Cinema {
             }
             return failureResponse;
         }
-        cinemaNotifier.notify(user, channel, "Numer Twojego biletu to: 123-abc-456-def");
+        CinemaNotifierResponse response = cinemaNotifier.notify(user, channel, "Numer Twojego biletu to: 123-abc-456-def");
+        if (!response.isStatus()) {
+            CinemaBookingResponse cinemaBookingResponse = new CinemaBookingResponse();
+            cinemaBookingResponse.setStatus(false);
+            switch (response.getStatusCode()) {
+                case SERVER_ERROR:
+                    cinemaBookingResponse.setMessage("Ops. Twoj bilet zostal zarezerwowany, ale nie moglismy wyslac Ci biletu");
+                    break;
+                case CHANNEL_NOTSPECIFIED:
+                    cinemaBookingResponse.setMessage("Nie moglismy wyslac biletu, poniewaz nie wskazales danych adresowych");
+                    break;
+            }
+            return cinemaBookingResponse;
+        }
+
         return new CinemaBookingResponse(true, "Miejsce zarezerwowane. Za chwile dostaniesz swoj bilet");
     }
 }

@@ -3,6 +3,7 @@ package com.sda.cinema;
 import com.sda.cinema.model.CinemaBookingResponse;
 import com.sda.cinema.model.CinemaBookingStatus;
 import com.sda.cinema.model.CinemaBookingStatusCode;
+import com.sda.cinema.model.CinemaNotifierResponse;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -16,6 +17,8 @@ public class CinemaTest {
         Mockito.when(cinemaBookingService.bookSeating(Mockito.any(), Mockito.anyInt()))
                 .then(e -> new CinemaBookingStatus(true, null));
         CinemaNotifier cinemaNotifier = Mockito.mock(CinemaNotifier.class);
+        Mockito.when(cinemaNotifier.notify(Mockito.any(), Mockito.any(), Mockito.any()))
+                .then(e -> new CinemaNotifierResponse(true, null));
 
         Cinema cinema = new Cinema(cinemaBookingService, cinemaNotifier);
 
@@ -35,6 +38,8 @@ public class CinemaTest {
         Mockito.when(cinemaBookingService.bookSeating(Mockito.any(), Mockito.anyInt()))
                 .then(e -> new CinemaBookingStatus(false, CinemaBookingStatusCode.WRONG_SEATING_ID));
         CinemaNotifier cinemaNotifier = Mockito.mock(CinemaNotifier.class);
+        Mockito.when(cinemaNotifier.notify(Mockito.any(), Mockito.any(), Mockito.any()))
+                .then(e -> new CinemaNotifierResponse(true, null));
 
         Cinema cinema = new Cinema(cinemaBookingService, cinemaNotifier);
 
@@ -55,6 +60,8 @@ public class CinemaTest {
         Mockito.when(cinemaBookingService.bookSeating(Mockito.any(), Mockito.anyInt()))
                 .then(e -> new CinemaBookingStatus(false, CinemaBookingStatusCode.SEATING_ALREADY_BOOKED));
         CinemaNotifier cinemaNotifier = Mockito.mock(CinemaNotifier.class);
+        Mockito.when(cinemaNotifier.notify(Mockito.any(), Mockito.any(), Mockito.any()))
+                .then(e -> new CinemaNotifierResponse(true, null));
 
         Cinema cinema = new Cinema(cinemaBookingService, cinemaNotifier);
 
@@ -65,6 +72,5 @@ public class CinemaTest {
         Assert.assertEquals("Wybrane miejsce jest juz zajete", response.getMessage());
         Assert.assertFalse(response.isStatus());
         Mockito.verify(cinemaNotifier, Mockito.times(0)).notify(Mockito.any(), Mockito.any(), Mockito.any());
-
     }
 }
